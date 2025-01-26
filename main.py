@@ -1,10 +1,21 @@
 import ccxt
+import json
 import time
+
+try:
+    with open('cdp_api_key.json', 'r') as file:
+        data = json.load(file)
+    print(data)
+except FileNotFoundError:
+    print("The file was not found.")
+except json.JSONDecodeError:
+    print("There was an error decoding the JSON.")
+
 
 # Initialize exchange
 exchange = ccxt.coinbase({
-    'apiKey': 'Add your own api key here',
-    'secret': 'Add your private key here',
+    'apiKey': data['name'],
+    'secret': data['privateKey'],
 })
 
 symbol = 'ETH/USDC'
